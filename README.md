@@ -1,29 +1,31 @@
-WELCOME TO AUTO DEPLOY PROJECT ON TOMCAT
-You can use this script to auto deploy your project on tomcat automaticly on server and also support load balancer.
+WELCOME TO AUTO DEPLOY PROJECT TO TOMCAT
+This script use to auto deploy your project to tomcat automaticly on server.
+
+# Requirement:
+You need to install sshpass on your local machine:
+$ sudo apt-get install sshpass	//Ubuntu
+$ sudo yum install sshpass	//Centos
 
 # Usage:
-Extract file and copy or cut it into your project path or any local machine path as you want to place it:
+$ cd /autoTomcat
 
-$ cd /file-path
+There are two files deployToTomcat for deploy project to server and autoTomcat for auto deploy project with two servers:
 
-You will see two file one for auto deploy to server and anothor one for auto deploy to two server(load balancer):
-
-# Configure setup for one server:
-Edit autoDeployToTomcat.sh file and update all required values for your requirement.
-
-# Configure setup for two servers:
-Edit checkRunningTomcat.sh file and update all required values for your requirement.
+# Configure credentail:
+Edit setting.conf file and update all required values for your requirement.
 
 # Execute script
 Run the following commands step by step to execute this script.
 
-$ cd /file-path
+$ cd /autoTomcat
 
-$ sudo chmod a+x autoDeployToTomcat.sh
+$ sudo chmod a+x autoTomcat.sh
+$ sudo chmod a+x deployToTomcat.sh
 
-$ ./autoDeployToTomcat.sh
+# Two Servers:
+$ ./autoTomcat.sh
 
-# Congratulation you success deploy your project to tomcat.
+# Single Server:
+$ ./deployToTomcat.sh
 
-#Note: For current version we not yet provide you to use cron to schedule your script. But for next version you can use it with cron job.
-
+Congradulation your project is running on Server please enjoy!
