@@ -27,7 +27,6 @@ source $CONFIGFILE
 # Get original file name
 
 ORIGINAL_FILE_NAME=`ls $FILE_PATH | grep $FILE_EXTENSION`
-echo "====$ORIGINAL_FILE_NAME"
 
 ##############################################################################
 
