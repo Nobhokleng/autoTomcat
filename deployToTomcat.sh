@@ -4,7 +4,7 @@
 ##
 ##	Author: Hokleng Nob
 ##	Email: gmhokleng@gmail.com
-##	Version: 1.1
+##	Version: 1.1.1
 ##
 ##	The script auto deploy project to tomcat. Update all configuration
 ##	as per you need to run auto deploy project to tomcat on your server.
@@ -34,10 +34,10 @@ ORIGINAL_FILE_NAME=`ls $FILE_PATH | grep $FILE_EXTENSION`
 [[ $1 ]] && echo "<<<<<Removing project from server>>>>>" || sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "pkill -9 -f $TOMCAT_NAME"
 
 # Remove exists old file
-sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH/webapps && rm -rf $PROJECT_NAME $PROJECT_NAME$FILE_EXTENSION"
+sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH/webapps && rm -rf $PROJECT_NAME $PROJECT_NAME$PROJECT_EXTENSION"
 
 echo "<<<<<Copying War File To Server>>>>>"
-sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no $FILE_PATH/$ORIGINAL_FILE_NAME $USER_NAME@$SERVER_HOST:$TOMCAT_PATH/webapps/$PROJECT_NAME$FILE_EXTENSION
+sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no $FILE_PATH/$ORIGINAL_FILE_NAME $USER_NAME@$SERVER_HOST:$TOMCAT_PATH/webapps/$PROJECT_NAME$PROJECT_EXTENSION
 
 # Check tomcat is running or not if not then run tomcat
 echo "<<<<<Checking Tomcat>>>>>"
@@ -48,9 +48,9 @@ if [ $isRunningTomcat -le 2 ]; then
 	sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH && ./bin/catalina.sh start"
 fi
 
-sleep 5s
 # Wait Untill Project is up
 echo "<<<<<Project Is Starting Up>>>>>"
+sleep 15s
 
 # Get http status
 STATUS=$(curl -s -o /dev/null -w '%{http_code}' $SERVER_HOST:$PORT)

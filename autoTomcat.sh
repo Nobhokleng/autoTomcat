@@ -4,11 +4,11 @@
 ##
 ##	Author:	Hokleng Nob
 ##	Email: gmhokleng@gmail.com
-##	Version: 1.1
+##	Version: 1.1.1
 ##
 ##	The script check which server is running tomcat. Update configuration,
 ##	as per you need to check which server us running tomcat and than
-##	execute autoDeployToTomcat script.
+##	execute autoTomcat script.
 ##
 #################################################################################
 ###				Configuration				      ###
@@ -21,7 +21,7 @@ source $CONFIGFILE
 #################################################################################
 
 # Get number of war file
-IS_EXIST=$(find $FILE_PATH -name "*.war" 2>/dev/null | wc -l)
+IS_EXIST=$(find $FILE_PATH -name "$FILE_EXTENSION" 2>/dev/null | wc -l)
 
 # Check if war file exist
 if [ $IS_EXIST != 0 ]; then
@@ -38,7 +38,7 @@ if [ $IS_EXIST != 0 ]; then
 		fi
 
 	elif [ $ENABLE_SII -eq 0 ]; then
-		source ./deployToTomcat.sh $USER_NAME_SI $PASSWORD_SI $HOST_SI $TOMCAT_NAME_SI $HTTP_PORT_SI $TOMCAT_PATH_SI
+		source ./deployToTomcat.sh
 	fi
 
 else
