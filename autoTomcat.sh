@@ -21,7 +21,7 @@ source $CONFIGFILE
 #################################################################################
 
 # Get number of war file
-IS_EXIST=$(find $FILE_PATH -name "$FILE_EXTENSION" 2>/dev/null | wc -l)
+IS_EXIST=$(find $FILE_PATH -name "*$FILE_EXTENSION" 2>/dev/null | wc -l)
 
 # Check if war file exist
 if [ $IS_EXIST != 0 ]; then
