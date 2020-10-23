@@ -4,7 +4,7 @@
 ##
 ##	Author: Hokleng Nob
 ##	Email: gmhokleng@gmail.com
-##	Version: 1.1.1
+##	Version: 1.1.2
 ##
 ##	The script auto deploy project to tomcat. Update all configuration
 ##	as per you need to run auto deploy project to tomcat on your server.
@@ -31,7 +31,7 @@ ORIGINAL_FILE_NAME=`ls $FILE_PATH | grep $FILE_EXTENSION`
 ##############################################################################
 
 # Stop tomcat when deploy project on a server
-[[ $1 ]] && echo "<<<<<Removing project from server>>>>>" || sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "pkill -9 -f $TOMCAT_NAME"
+[[ $1 ]] && echo "<<<<<Removing project from server>>>>>" || sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH && ./bin/catalina.sh stop"
 
 # Remove exists old file
 sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH/webapps && rm -rf $PROJECT_NAME $PROJECT_NAME$PROJECT_EXTENSION"
@@ -72,7 +72,7 @@ else
 
 	case $press in
 	1)
-		sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH && tail -n 500 logs/catalina.out"
+		sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH && tail -n 200 logs/catalina.out"
 		exit 1
 		;;
 	2)
