@@ -31,7 +31,7 @@ ORIGINAL_FILE_NAME=`ls $FILE_PATH | grep $FILE_EXTENSION`
 ##############################################################################
 
 # Stop tomcat when deploy project on a server
-[[ $1 ]] && echo "<<<<<Removing project from server>>>>>" || sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH && ./bin/catalina.sh stop"
+[[ $1 ]] && echo "<<<<<Removing project from server>>>>>" || sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "pkill -9 -f $TOMCAT_NAME"
 
 # Remove exists old file
 sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH/webapps && rm -rf $PROJECT_NAME $PROJECT_NAME$PROJECT_EXTENSION"
@@ -50,6 +50,7 @@ fi
 
 # Wait Untill Project is up
 echo "<<<<<Project Is Starting Up>>>>>"
+gnome-terminal --tab -- bash -c 'sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no $USER_NAME@$SERVER_HOST "cd $TOMCAT_PATH && tail -f logs/catalina.out"; read line'
 sleep 15s
 
 # Get http status
